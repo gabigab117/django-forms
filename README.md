@@ -87,6 +87,20 @@ python manage.py runserver
 - Contact (Form avec email) : `http://localhost:8000/sav/contact/`
 - Interface admin : `http://localhost:8000/admin/`
 
+## Customisation des formulaires
+
+Pour voir comment **customiser l'apparence et le comportement des formulaires** (widgets personnalisés, styles CSS, validation avancée, etc.), consultez la branche `2-custom-forms` :
+
+```bash
+git checkout 2-custom-forms
+```
+
+Cette branche contient des exemples de :
+- Personnalisation des widgets (styles, classes CSS)
+- Validation personnalisée
+- Messages d'erreur personnalisés
+- Ajout d'attributs HTML personnalisés
+
 ## Conclusion
 
 **Choisissez ModelForm** quand votre formulaire correspond exactement à un modèle et que vous voulez créer/modifier des instances.
