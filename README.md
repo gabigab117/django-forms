@@ -10,18 +10,51 @@ Ce projet Django illustre la différence entre **Form** et **ModelForm** à trav
 
 ```python
 class ProductForm(forms.ModelForm):
+    # Champ custom qui n'existe PAS dans le modèle Product
+    notify_on_low_stock = forms.BooleanField(
+        required=False,
+        label='Recevoir une notification si le stock est bas',
+        help_text='Cochez cette case pour être notifié quand le stock passe sous 10 unités',
+    )
+
     class Meta:
         model = Product
         fields = ['name', 'price', 'stock']
+
+        # Personnalisation des labels
+        labels = {
+            'name': 'Nom du produit',
+        }
+
+        # Personnalisation des widgets avec CSS et attributs HTML
+        widgets = {
+            'name': forms.Textarea(attrs={
+                'class': 'form-control product-input',
+                'placeholder': 'e.g., Wireless Headphones',
+                'style': 'border: 2px solid #4CAF50; padding: 8px; border-radius: 4px;',
+            }),
+        }
+
+    def __init__(self, *args, **kwargs):
+        """Personnalisation dynamique des champs"""
+        super().__init__(*args, **kwargs)
+        # Modification du label au moment de l'initialisation
+        self.fields['price'].label = 'Prix (€)'
 ```
 
 **Avantages :**
 - Génération automatique des champs depuis le modèle
 - Méthode `save()` intégrée pour créer/modifier les instances
 - Validation automatique basée sur le modèle
-- Moins de code à écrire
+- **Personnalisable** : ajout de champs custom, modification des widgets et labels
+- Moins de code à écrire pour les cas standard
 
-**Utilisation typique :** Formulaires CRUD (Create, Read, Update, Delete) directement liés à un modèle de base de données.
+**Personnalisations démontrées :**
+- **Champ additionnel** : `notify_on_low_stock` n'existe pas dans le modèle mais disponible dans le formulaire
+- **Labels personnalisés** : via `Meta.labels` ou dans `__init__()` pour personnalisation dynamique
+- **Widgets custom** : modification du rendu HTML avec classes CSS, placeholders et styles inline
+
+**Utilisation typique :** Formulaires CRUD (Create, Read, Update, Delete) directement liés à un modèle de base de données, même avec personnalisations avancées.
 
 ### 2. Form (app `sav`)
 
