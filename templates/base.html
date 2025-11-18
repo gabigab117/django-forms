@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Django Forms Tutorial{% endblock %}</title>
+</head>
+<body>
+    <nav>
+        <ul>
+            <li><a href="{% url 'add_product' %}">Shop - Add Product</a></li>
+            <li><a href="{% url 'add_reclamation' %}">SAV - Add Reclamation</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+</html>
