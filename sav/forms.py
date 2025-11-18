@@ -10,6 +10,8 @@ class ReclamationForm(forms.Form):
     - Hérite de forms.Form (pas de forms.ModelForm)
     - Nécessite de définir manuellement tous les champs
     - Doit implémenter sa propre méthode save() pour créer l'instance
+    - Nous ne sommes pas obligés de créer des instances
+    - On pourrait juste récupérer des données et les envoyer par email par exemple
 
     Cet exemple illustre la différence entre forms.Form et forms.ModelForm.
     """
@@ -52,5 +54,6 @@ class ReclamationForm(forms.Form):
             email=email,
             message=message
         )
+        # On pourrait même s'amuser à créer des instances de plusieurs modèles ici si besoin
 
         return reclamation

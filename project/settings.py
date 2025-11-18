@@ -122,3 +122,10 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Email configuration
+# https://docs.djangoproject.com/en/5.2/topics/email/
+
+# Console backend: affiche les emails dans la console au lieu de les envoyer
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

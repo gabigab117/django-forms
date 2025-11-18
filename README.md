@@ -49,6 +49,25 @@ class ReclamationForm(forms.Form):
 
 **Utilisation typique :** Formulaires de contact, recherche, filtres, ou formulaires nécessitant une logique métier complexe.
 
+### Exemple concret : Réutilisation du même formulaire
+
+L'application `sav` démontre la **flexibilité des forms.Form** en réutilisant `ReclamationForm` pour deux usages différents :
+
+1. **`/sav/add/`** ([views.py:7-16](sav/views.py#L7-L16)) : Sauvegarde en base de données
+   ```python
+   form.save()  # Crée une instance Reclamation en DB
+   ```
+
+2. **`/sav/contact/`** ([views.py:19-51](sav/views.py#L19-L51)) : Envoi d'email sans sauvegarde
+   ```python
+   # Même formulaire, usage différent
+   email = form.cleaned_data['email']
+   message = form.cleaned_data['message']
+   send_mail(...)  # Envoie uniquement un email
+   ```
+
+Ce pattern illustre qu'un **forms.Form n'est pas lié à la persistance** - vous décidez quoi faire avec les données validées.
+
 ## Démarrage rapide
 
 ```bash
@@ -64,6 +83,8 @@ python manage.py runserver
 
 **URLs disponibles :**
 - Ajouter un produit (ModelForm) : `http://localhost:8000/shop/add/`
+- Ajouter une réclamation (Form avec save) : `http://localhost:8000/sav/add/`
+- Contact (Form avec email) : `http://localhost:8000/sav/contact/`
 - Interface admin : `http://localhost:8000/admin/`
 
 ## Conclusion
